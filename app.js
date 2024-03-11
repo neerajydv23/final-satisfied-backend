@@ -22,8 +22,9 @@ app.use(cookieparser());
 
 
 app.use(cors({
-	origin: "http://localhost:3000",
+	origin: "https://final-satisfiend-job.onrender.com/",
 	credentials: true,
+	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 	optionsSuccessStatus: 200 // Address potential preflight request issues
 }));
 
