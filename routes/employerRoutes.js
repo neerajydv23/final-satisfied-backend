@@ -18,9 +18,14 @@ const {
 	readSingleJob,
 	deleteEmployer,
 	allApplications,
-	applicationsStatus
+	applicationsStatus,
+	SearchJobs,
+	SearchEmploye,
+	SearchUsers
 } = require('../controllers/employerControllers');
 const { isAuthenticated } = require('../middlewares/auth');
+const { isAdmin } = require('../middlewares/adminAuth');
+const { SerchJobs } = require('../controllers/indexControllers');
 
 const router = express.Router();
 
@@ -97,6 +102,44 @@ router.post(
 	'/internship/readsingle/:id',
 	isAuthenticated,
 	readSingleInternship
+);
+
+
+/// ---------------------------------Admin-----------------------------
+
+
+// ADMIN All users
+router.post(
+	'/admin/user',
+	isAuthenticated,
+	isAdmin,
+);
+
+// ADMIN All employe
+
+
+// ADMIN All jobs
+router.post(
+	'/admin/jobs',
+	isAuthenticated,
+	isAdmin,
+	SearchJobs
+);
+
+// ADMIN All employe
+router.post(
+	'/admin/employe',
+	isAuthenticated,
+	isAdmin,
+	SearchEmploye
+);
+
+// ADMIN All user
+router.post(
+	'/admin/user',
+	isAuthenticated,
+	isAdmin,
+	SearchUsers
 );
 
 

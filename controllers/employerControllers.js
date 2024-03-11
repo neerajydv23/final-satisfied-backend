@@ -8,6 +8,8 @@ const path = require('path');
 const Internship = require('../models/internshipModel');
 const Job = require('../models/jobModel');
 const JobApplication = require('../models/jobApplicationModel');
+const Studnt = require("../models/studentModel");
+const Student = require('../models/studentModel');
 
 const cloudinary = require("cloudinary").v2;
 
@@ -282,3 +284,143 @@ exports.applicationsStatus = catchAsyncError(async (req, res, next) => {
 
 
 })
+
+exports.SearchUsers = catchAsyncError(async (req, res, next) => {
+
+
+    try {
+        let searchQuery = req.query.q;
+		let admin = await Employer.findById(req.id);
+
+        // Check if search parameter is provided, if not, retrieve all users
+        if (!searchQuery) {
+            const allUsers = await getAllUsers();
+            res.json(allUsers);
+        } else {
+            // Search based on provided parameter
+            const users = await searchUsers(searchQuery);
+            res.json(users);
+        }
+    } catch (error) {
+        console.error('Error in SearchUsers route:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+
+    async function searchUsers(query) {
+        const searchRegex = new RegExp(query, 'i');
+
+        const queryObj = {
+            firstname: { $regex: searchRegex },
+            lastname: { $regex: searchRegex },
+			email: { $regex: searchRegex },
+        };
+
+        return Student.find(queryObj);
+    }
+
+    async function getAllUsers() {
+        return Student.find(); // Retrieve all users
+    }
+});
+
+
+exports.SearchEmploye = catchAsyncError(async (req, res, next) => {
+    try {
+        let searchQuery = req.query.q;
+
+        // Check if search parameter is provided, if not, retrieve all users
+        if (!searchQuery) {
+            const employes = await getAllEmploye();
+            res.json(employes);
+        } else {
+            // Search based on provided parameter
+            const employes = await SearchEmploye(searchQuery);
+            res.json(employes);
+        }
+    } catch (error) {
+        console.error('Error in SearchUsers route:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+
+    async function SearchEmploye(query) {
+        const searchRegex = new RegExp(query, 'i');
+
+        const queryObj = {
+            firstname: { $regex: searchRegex },
+            lastname: { $regex: searchRegex },
+			email: { $regex: searchRegex },
+        };
+
+        return Employer.find(queryObj);
+    }
+
+    async function getAllEmploye() {
+        return Employer.find(); // Retrieve all users
+    }
+});
+
+exports.SearchJobs = catchAsyncError(async (req, res, next) => {
+    try {
+        let searchQuery = req.query.q;
+
+        // Check if search parameter is provided, if not, retrieve all users
+        if (!searchQuery) {
+            const jobs = await getAllJobs();
+            res.json(jobs);
+        } else {
+            // Search based on provided parameter
+            const jobs = await searchJobs(searchQuery);
+            res.json(jobs);
+        }
+    } catch (error) {
+        console.error('Error in SearchUsers route:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+
+
+    async function getAllJobs() {
+        return Job.find().populate('employer'); // Retrieve all users
+    }
+
+		async function searchJobs(query) {
+		const searchRegex = new RegExp(query, 'i'); // 'i' for case-insensitive
+		return Job.find({
+			$or: [
+				{ title: { $regex: searchRegex } },
+				{ skills: { $regex: searchRegex } },
+				{ location: { $regex: searchRegex } },
+				{ description: { $regex: searchRegex } },
+				{ preferences: { $regex: searchRegex } },
+			]
+		}).populate('employer');
+	}
+	
+});
+
+
+// exports.SerchJobs = catchAsyncError(async (req, res, next) => {
+// 	try {
+// 		const searchQuery = req.query.q; // Get search query from URL query parameters
+// 		const location = req.query.location;
+
+// 		const jobs = await searchJobs(searchQuery,location);
+// 		res.json(jobs);
+// 	} catch (error) {
+// 		console.error('Error in AllJobs route:', error);
+// 		res.status(500).json({ success: false, error: 'Internal Server Error' });
+// 	}
+// 	async function searchJobs(query,location) {
+// 		const searchRegex = new RegExp(query, 'i'); // 'i' for case-insensitive
+// 		const locationRegex = new RegExp(location, 'i')
+// 		return Job.find({
+// 			$or: [
+// 				{ title: { $regex: searchRegex } },
+// 				{ skills: { $regex: searchRegex } },
+// 				{ location: { $regex: locationRegex } },
+// 				{ description: { $regex: searchRegex } },
+// 				{ preferences: { $regex: searchRegex } },
+// 			]
+// 		});
+// 	}
+// });
+
