@@ -21,7 +21,9 @@ const {
 	applicationsStatus,
 	SearchJobs,
 	SearchEmploye,
-	SearchUsers
+	SearchUsers,
+	DeleteUser,
+	MakeAdmin
 } = require('../controllers/employerControllers');
 const { isAuthenticated } = require('../middlewares/auth');
 const { isAdmin } = require('../middlewares/adminAuth');
@@ -140,6 +142,22 @@ router.post(
 	isAuthenticated,
 	isAdmin,
 	SearchUsers
+);
+
+// ADMIN delet user
+router.post(
+	'/admin/delete/user/:id',
+	isAuthenticated,
+	isAdmin,
+	DeleteUser
+);
+
+// ADMIN Make Employe
+router.post(
+	'/admin/make/:id',
+	isAuthenticated,
+	isAdmin,
+	MakeAdmin
 );
 
 

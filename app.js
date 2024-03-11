@@ -20,13 +20,26 @@ app.use(fileupload({
 const cookieparser = require('cookie-parser');
 app.use(cookieparser());
 
+// CORS setup
+const allowedOrigins = [
+	'https://frontend-satisfide-job.vercel.app',
+	'https://c-frontend-satisfide-job.onrender.com',
+	'http://localhost:3000' // Replace with your actual frontend origin if different
+];
 
 app.use(cors({
-	origin: "https://final-satisfiend-job.onrender.com/",
+	origin: 'http://localhost:3000',
 	credentials: true,
-	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 	optionsSuccessStatus: 200 // Address potential preflight request issues
 }));
+
+
+// app.use(cors({
+// 	origin: "https://final-satisfiend-job.onrender.com/",
+// 	credentials: true,
+// 	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+// 	optionsSuccessStatus: 200 // Address potential preflight request issues
+// }));
 
 //logger
 app.use(loggger('tiny'));

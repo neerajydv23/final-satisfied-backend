@@ -398,6 +398,36 @@ exports.SearchJobs = catchAsyncError(async (req, res, next) => {
 });
 
 
+exports.DeleteUser = catchAsyncError(async (req, res, next) => {
+    try {
+        const id = req.params.id;
+		const user = await Student.findByIdAndDelete(id);
+		const alluser = await Student.find();
+		res.json({ success: true, message: 'Delete User', user:alluser });
+    } catch (error) {
+        console.error('Error in SearchUsers route:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+
+});
+
+exports.MakeAdmin = catchAsyncError(async (req, res, next) => {
+    try {
+        const id = req.params.id;
+		const employe = await Employer.findById(id);
+		employe.isAdmin = true;
+		employe.save();
+		const allemploye = await Employer.find()
+		res.json({ success: true, message: 'Made Author', employe:allemploye });
+    } catch (error) {
+        console.error('Error in SearchUsers route:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+
+});
+
+
+
 // exports.SerchJobs = catchAsyncError(async (req, res, next) => {
 // 	try {
 // 		const searchQuery = req.query.q; // Get search query from URL query parameters
