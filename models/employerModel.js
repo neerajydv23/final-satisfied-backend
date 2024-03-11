@@ -56,6 +56,10 @@ const employerModel = mongoose.Schema(
 		applications: [{
 			type: mongoose.Schema.Types.ObjectId, ref: 'JobApplication'
 		}],
+		isAdmin:{
+			type:Boolean,
+			default: false,
+		}
 		
 	},
 	{ timestamps: true }

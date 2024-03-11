@@ -306,7 +306,6 @@ exports.AllJobs = catchAsyncError(async (req, res, next) => {
     try {
         let queryObj = {};
 
-
         // Add filter conditions only if they are provided
         if (req.body.title) queryObj.title = { $regex: req.body.title, $options: 'i' }; // Case-insensitive
         if (req.body.location) queryObj.location = { $regex: req.body.location, $options: 'i' }; // Case-insensitive
