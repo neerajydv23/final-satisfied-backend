@@ -24,11 +24,12 @@ app.use(cookieparser());
 const allowedOrigins = [
 	'https://frontend-satisfide-job.vercel.app',
 	'https://c-frontend-satisfide-job.onrender.com',
-	'http://localhost:3000' // Replace with your actual frontend origin if different
+	'http://localhost:3000', // Replace with your actual frontend origin if different
+	'https://final-satisfiend-job.vercel.app'
 ];
 
 app.use(cors({
-	origin: 'https://final-satisfiend-job.vercel.app',
+	origin: 'http://localhost:3000',
 	credentials: true,
 	optionsSuccessStatus: 200 // Address potential preflight request issues
 }));

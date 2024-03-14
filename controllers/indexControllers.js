@@ -327,7 +327,7 @@ exports.AllJobs = catchAsyncError(async (req, res, next) => {
         const skip = (page - 1) * limit;
 		console.log(req.body.category);
 		console.log(queryObj)
-        const jobs = await Job.find(queryObj).populate('employer').skip(skip).limit(limit);
+        const jobs = await Job.find(queryObj).populate('employer').sort({ _id: -1 }).skip(skip).limit(limit);
 		console.log(jobs)
 
         const totalCount = await Job.countDocuments(queryObj);
