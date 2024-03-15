@@ -29,7 +29,7 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-	origin: 'https://demoto-tpql.vercel.app',
+	origin: 'https://demoto.vercel.app',
 	credentials: true,
 	optionsSuccessStatus: 200 // Address potential preflight request issues
 }));
