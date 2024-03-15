@@ -29,7 +29,7 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-	origin: 'http://localhost:3000',
+	origin: 'https://demoto-arpits-projects-1c6b9bf9.vercel.app/',
 	credentials: true,
 	optionsSuccessStatus: 200 // Address potential preflight request issues
 }));
