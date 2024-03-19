@@ -17,7 +17,9 @@ const {
 	AllJobs,
 	getApplicationsByStudent,
 	applyForJob,
-	SerchJobs
+	SerchJobs,
+	findTopCompony,
+	findrecentCompony
 } = require('../controllers/indexControllers');
 const { isAuthenticated } = require('../middlewares/auth');
 const router = express.Router();
@@ -66,6 +68,12 @@ router.post('/student/AllJobs', isAuthenticated, AllJobs);
 
 // serch Job
 router.post('/search', SerchJobs);
+
+// serch Job
+router.post('/topcompony', findTopCompony);
+
+// serch Job
+router.post('/resentjobs', findrecentCompony);
 
 /* apply job */
 router.post('/student/apply', isAuthenticated, applyForJob);

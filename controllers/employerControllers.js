@@ -417,6 +417,7 @@ exports.DeleteEmployer = catchAsyncError(async (req, res, next) => {
 	try {
 	  const id = req.params.id;
 	  const employer = await Employer.findByIdAndDelete(id);
+    await Job.deleteMany({employer: id});
 	  const allemployer = await Employer.find();
 	  res.json({ success: true, message: "Delete User", user: allemployer });
 	} catch (error) {

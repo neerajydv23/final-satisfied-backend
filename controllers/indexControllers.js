@@ -566,3 +566,19 @@ exports.deleteStudent = catchAsyncError(async (req, res, next) => {
 		});
 	}
 });
+
+
+
+/* -------- find top componyes ------ */
+exports.findTopCompony = catchAsyncError(async (req, res, next) => {
+	const jobs = await Job.find().populate('employer').sort({ 'applications.length': -1 }).limit(10);
+	res.json({jobs})
+});
+
+
+
+/* -------- find recent jobs ------ */
+exports.findrecentCompony = catchAsyncError(async (req, res, next) => {
+	const jobs = await Job.find().populate('employer').sort({ _id: -1 }).limit(10);
+	res.json({jobs})
+});

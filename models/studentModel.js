@@ -77,8 +77,7 @@ const studentModel = mongoose.Schema(
 			worksamples: [],
 			accomplishments: [],
 		},
-		applications: [
-			
+		applications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'JobApplication' }	
 		],
 		jobapplications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'job' }],
 	},

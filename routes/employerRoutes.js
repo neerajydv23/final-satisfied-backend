@@ -25,7 +25,8 @@ const {
 	DeleteUser,
 	MakeAdmin,
 	AdminResgisterState,
-	AdminAllInfo
+	AdminAllInfo,
+	DeleteEmployer
 } = require('../controllers/employerControllers');
 const { isAuthenticated } = require('../middlewares/auth');
 const { isAdmin } = require('../middlewares/adminAuth');
@@ -159,7 +160,7 @@ router.post(
 	'/admin/delete/employer/:id',
 	isAuthenticated,
 	isAdmin,
-	DeleteUser
+	DeleteEmployer
 );
 
 
