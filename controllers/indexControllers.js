@@ -145,7 +145,7 @@ exports.studentAvatar = catchAsyncError(async (req, res, next) => {
 			.json({ success: true, message: 'Profile Picture Updated Successfully!', student: student });
 	} else {
 		// Handle the case where req.files or req.files.resuma is undefined
-		return res.status(400).json({ success: false, message: 'No resuma file provided.' });
+		return next( new ErrorHandler("  Find No Avatar"))
 	}
 });
 
