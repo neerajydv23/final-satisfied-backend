@@ -153,7 +153,9 @@ exports.employerOrganisationLogo = catchAsyncError(async (req, res, next) => {
 
 exports.createJob = catchAsyncError(async (req, res, next) => {
   const employer = await Employer.findById(req.id).exec();
+  console.log(req.body)
   const job = await new Job(req.body);
+  console.log(job)
   job.employer = employer._id;
   employer.jobs.push(job._id);
   await job.save();
