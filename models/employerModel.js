@@ -40,6 +40,11 @@ const employerModel = mongoose.Schema(
 			type: String,
 			default: 0,
 		},
+		industry: String,
+		companySize: String,
+		location: String,
+		website: String,
+		socialMedia: String,
 		organisationlogo: {
 			type: Object,
 			default: {

@@ -29,6 +29,9 @@ exports.currentemployer = catchAsyncError(async (req, res, next) => {
 });
 
 exports.employersignup = catchAsyncError(async (req, res, next) => {
+  const {email} = req.body;
+  const isExist = await Employer.findOne({email:email});
+  if(isExist) return next(new ErrorHandler("Employer with this email already exists", 401));
   const employer = await new Employer(req.body).save();
   sendtoken(employer, 200, res);
   // res.status(201).json({ employer });
@@ -50,6 +53,50 @@ exports.employersingin = catchAsyncError(async (req, res, next) => {
 
   sendtoken(employer, 200, res);
 });
+
+
+exports.addCompanyDeatils = catchAsyncError(async (req, res, next) => {
+  // const employer = await Employer.findById(req.id);
+  // console.log(employer)
+
+  // if (!employer) {
+  //   return next(
+  //     new ErrorHandler("Employer not found with this Email Address", 404)
+  //   );
+  // }
+  console.log(req.body)
+
+  const { industry , companySize , location , website , socialMedia} = req.body;
+  if(!industry ||
+     !companySize ||
+     !location || 
+     !website) return next(new ErrorHandler("Pleas Provide all details",401));
+
+
+  const employer = await Employer.findByIdAndUpdate(req.id,req.body)
+
+  if(employer){
+    console.log("enter")
+    res.status(200).json({ message: "Password Changed Successfully" , employer });
+
+  }
+
+  // employer.industy = industy
+  // console.log(employer, industy)
+  // employer.companySize = companySize
+  // employer.location = location`
+  // employer.website = website
+  // employer.socialMedia = socialMedia
+  // await employer.save();
+
+  
+  
+});
+
+// exports.addCompanyDetails = catchAsyncError(async (req, res, next) => {
+//   const employer = await Employer.findById(req.id);
+  
+// });
 
 exports.employersignout = catchAsyncError(async (req, res, next) => {
   res.clearCookie("token");
@@ -315,8 +362,7 @@ exports.SearchUsers = catchAsyncError(async (req, res, next) => {
 
     const queryObj = {
 		$or: [
-			{ firstname: { $regex: searchRegex } }, // Search in first name
-			{ lastname: { $regex: searchRegex } }, 
+			{ name: { $regex: searchRegex } }, // Search in first name
 			{ email: { $regex: searchRegex } },  // Search in last name
 		]
     };

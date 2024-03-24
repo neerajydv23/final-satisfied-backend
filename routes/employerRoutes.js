@@ -26,7 +26,8 @@ const {
 	MakeAdmin,
 	AdminResgisterState,
 	AdminAllInfo,
-	DeleteEmployer
+	DeleteEmployer,
+	addCompanyDeatils
 } = require('../controllers/employerControllers');
 const { isAuthenticated } = require('../middlewares/auth');
 const { isAdmin } = require('../middlewares/adminAuth');
@@ -42,6 +43,9 @@ router.post('/current', isAuthenticated, currentemployer);
 
 // POST /employer/signin
 router.post('/signin', employersingin);
+
+// POST /employer/signin
+router.post('/addCompanyDeatils', isAuthenticated , addCompanyDeatils);
 
 // POST /employer/signup
 router.post('/signup', employersignup);
