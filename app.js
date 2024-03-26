@@ -30,7 +30,9 @@ const allowedOrigins = [
 
 app.use(cors({
 	// origin: 'https://demoto.vercel.app',
-	origin: 'https://satisfiedjob.com',
+	origin: ['https://satisfiedjob.com',
+		 'http://localhost:3000',
+		],
 	credentials: true,
 	optionsSuccessStatus: 200 // Address potential preflight request issues
 }));
